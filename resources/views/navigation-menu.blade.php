@@ -17,7 +17,7 @@
                     </x-jet-nav-link>
 
                     <x-jet-nav-link href="{{ route('tab1') }}" :active="request()->routeIs('tab1')">
-                        {{ __('Tab1') }}
+                        {{ __('탭1') }}
                     </x-jet-nav-link>
 
                     <x-jet-nav-link href="{{ route('tab2') }}" :active="request()->routeIs('tab2')">

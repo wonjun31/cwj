@@ -4,26 +4,134 @@
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
-
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
 <body>
-<div id="app">
-    <input :type="type" v-bind:value= "inputData">
-</div>
+    <div id="example-3">
+        <simple-counter2></simple-counter2>
+      </div>
+
+      <div id="example-1">
+        <button v-on:click="counter += 1">Add 1</button>
+        <p>위 버튼을 클릭한 횟수는 {{ counter }} 번 입니다.</p>
+      </div>
+
+      <div id ="app1">
+            <div v-html ="selectDiv" ></div>
+            <select v-model= "selectDiv" v-on:change ="fn_change">
+                <option value="사랑">사랑</option>
+                <option value="솔개">솔개</option>
+                <option value="소나무">소나무</option>
+                <option value="광대">광대</option>
+            </select>
+      </div>
+
+
+      <div id ="app2">
+<ul >
+<li v-for="(item,index) in selectAxios">
+       {{index}} {{ item.title }}
+</li>
+          </ul>
+
+
+      </div>
+
 <script>
 
- new Vue({
 
-    el:'#app',
-    data:{
-        inputData:'20',
-        type:"number"
+
+
+var data = { counter: 0 }
+
+
+Vue.component('simple-counter', {
+  template: '<button v-on:click="counter += 1">{{ counter }}</button>',
+  // 데이터는 기술적으로 함수이므로 Vue는 따지지 않지만
+  // 각 컴포넌트 인스턴스에 대해 같은 객체 참조를 반환합니다.
+  data: function () {
+    return data
+  }
+})
+Vue.component('simple-counter2', {
+  template: '<div>사랑해<simple-counter></simple-counter></div>'
+})
+
+var vv =new Vue({
+  el: '#example-3'
+})
+
+var example1 = new Vue({
+  el: '#example-1',
+  data: {
+    counter: 0
+  }
+})
+
+
+var sele = new Vue({
+    el : "#app1",
+    data: {
+        selectDiv : '선택해주세요.'
+    },
+    methods: {
+        fn_change : function() {
+            alert(event.target.value)
+        }
     }
 })
 
-</script>
+var sele2 = new Vue({
 
+    el : "#app2",
+    data: {
+        selectAxios : []
+    },
+  mounted: function () {
+    axios.get("http://127.0.0.1/testAxios").then(response => (this.selectAxios = response.data))
+  }
+})
+
+/*
+async function Acc(){
+    var user = await fetchUser().then();
+    console.log(user);
+    return user;
+}
+
+function fetchUser() {
+  var url = 'http://127.0.0.1/testAxios'
+  return fetch(url).then(function(response) {
+    return response.json();
+  });
+}
+
+
+
+async function fetchData() {
+  await getUserList();
+}
+
+async function fetchData() {
+  var list = await getUserList().then();
+  return list;
+}
+
+function getUserList() {
+  return new Promise(function(resolve, reject) {
+    var userList = ['user1', 'user2', 'user3'];
+    resolve(userList);
+  });
+}
+
+*/
+
+
+
+
+
+
+</script>
 
 
 </body>
