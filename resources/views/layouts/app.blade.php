@@ -17,6 +17,50 @@
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+
+             function fn_like3(){
+                  axios.get('/getMsg').then((Response)=>{
+                    console.log(Response.data);
+                }).catch((Error)=>{
+                    console.log(Error);
+                })
+                console.log("test");
+            }
+
+            async function fn_like( board_no){
+
+                var status = "true";
+
+                await  axios.get('/getMsg',{params:{"board_no":board_no , "status": status }}).then((Response)=>{
+                    console.log(Response.data);
+                }).catch((Error)=>{
+                    console.log(Error);
+                })
+                console.log("test");
+            }
+
+            function fn_like3(){
+                $.ajax({
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    type: 'GET',
+                    url: '{{ route('getMsg') }}',
+                    dataType: 'text',
+                    data: {  },
+                    success: function(data) {
+                            console.log(data);
+                    },
+                    error: function(data) {
+                        console.log("error" +data);
+                    }
+                });
+                    console.log("test");
+            }
+
+
+
+        </script>
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />

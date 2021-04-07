@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Board extends Model
+class Like_status extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'board_no';
-    public $table = "board";
+    protected $primaryKey = 'like_no';
+    public $table = "like_status";
 
     //타임테이블 확인 -펄스
     public $timestamps = false;
 
     protected $fillable = [
-        'board_no','title', 'content', 'views','subFile','writer',
+        'like_no','board_no', 'email', 'status',
     ];
 }

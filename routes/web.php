@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\FirstController;
 
+use Illuminate\Support\Facades\Storage;
 
 
 /*
@@ -22,6 +23,8 @@ use App\Http\Controllers\FirstController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
 /*
 Route::get('/test123', function () {
     return view('test123');
@@ -34,8 +37,15 @@ Route::get('/test123', 'Controller@show');
 
 //Route::get('/test123','App\Http\Controllers\BoardController@show');
 
+
+
 //경로먹음
 Route::get('/test',[Controller::class, 'index']);
+
+
+Route::get('/getMsg', [BoardController::class, 'likePlus'])->name('getMsg');
+
+
 
 //Route::get('/test123',[MakeController::class, 'index']);
 
@@ -82,7 +92,6 @@ Route::post('/boardCreate', [BoardController::class, 'create'] )
 ->name('boardCreate');
 
 
-
 Route::middleware(['auth:sanctum', 'verified'])->get('/boardUpdateView', function () {
     $board_no =$_GET['board_no'];
 
@@ -96,5 +105,16 @@ Route::post('/boardUpdate', [BoardController::class, 'update'] )
 ->name('boardUpdate');
 
 
+
+
+//파일다운로드
+Route::get('/subDown/{subFile}', function ($subFile) {
+
+
+    //path 잡은후 리스폰으로 다운로드함.
+    $path = Storage::path('public\images\\'.$subFile);
+
+    return response()->download($path);
+})->name('subDown');
 
 

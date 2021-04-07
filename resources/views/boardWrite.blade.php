@@ -12,7 +12,7 @@
                     <span class="btn_list"><a href="{{ route('tab2') }}">목록</a></span>
                 </div>
 
-                <form method="POST" action="/boardCreate">
+                <form method="POST" action="/boardCreate" enctype="multipart/form-data">
                     @csrf
                 <table width="100%"  >
 
@@ -24,7 +24,8 @@
                                 <x-jet-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" required autofocus autocomplete="title" /></td>
                         <tr><th>작성자</th><td> <x-jet-input id="writer" class="block mt-1 w-full" type="text" name="writer" :value="old('writer')" required autofocus autocomplete="writer" /></td>
                         <tr><th>내용</th><td><textarea id="content" class="block mt-1 w-full" type="text" name="content" :value="old('content')" required autofocus autocomplete="content" > </textarea> </td>
-                    </tbody>
+                            <tr><th>파일</th><td><x-jet-input id="subFile" class="block mt-1 w-full" type="file" name="subFile" value="" required autofocus autocomplete="subFile" /></td>
+                        </tbody>
                 </table>
 
                 <x-jet-button class="ml-4">
